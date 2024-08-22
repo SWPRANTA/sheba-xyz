@@ -1,5 +1,5 @@
 import Navbar from "../components/Navbar";
-import ServiceCard from "../components/ServiceCArd";
+import ServiceCard from "../components/ServiceCard";
 
 export default function Services() {
   const categories = [

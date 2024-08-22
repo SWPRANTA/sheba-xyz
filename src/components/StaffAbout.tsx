@@ -1,6 +1,64 @@
-import { useParams } from "react-router-dom";
-import Navbar from "../components/Navbar";
-import StaffMiniCard from "../components/StaffMiniCard";
+import React from "react";
+interface Staff {
+  _id: number;
+  name: string;
+  bio: string;
+  description: string;
+  location: string;
+  rate: string;
+  services: string[];
+  image: string;
+}
+
+interface StaffAboutProps {
+  staff: Staff;
+}
+
+const slots = [
+  {
+    _id: 156456386232,
+    label: "Early Morning Service",
+    start_time: "08:00",
+    end_time: "09:30",
+  },
+  {
+    _id: 156456386233,
+    label: "Mid Morning Service",
+    start_time: "10:00",
+    end_time: "11:30",
+  },
+  {
+    _id: 156456386234,
+    label: "Late Morning Service",
+    start_time: "11:30",
+    end_time: "13:00",
+  },
+  {
+    _id: 156456386235,
+    label: "Early Afternoon Service",
+    start_time: "13:30",
+    end_time: "15:00",
+  },
+  {
+    _id: 156456386236,
+    label: "Late Afternoon Service",
+    start_time: "15:30",
+    end_time: "17:00",
+  },
+  {
+    _id: 156456386237,
+    label: "Pre Dinner Service",
+    start_time: "17:30",
+    end_time: "19:00",
+  },
+  {
+    _id: 156456386238,
+    label: "Late Night Service",
+    start_time: "19:30",
+    end_time: "21:00",
+  },
+];
+
 const services = [
   {
     _id: 1,
@@ -162,165 +220,120 @@ const services = [
   },
 ];
 
-const staffs = [
-  {
-    _id: 146,
-    name: "Rafiq Ahmed",
-    bio: "Expert in home appliance repair with 12 years of experience.",
-    description:
-      "I specialize in repairing various home appliances including refrigerators, washing machines, and microwaves. My goal is to provide quick and reliable service to keep your home running smoothly.",
-    location: "Banani, Dhaka",
-    rate: "1200",
-    services: [
-      "Refrigerator Repair",
-      "Washing Machine Repair",
-      "Microwave Oven Repair",
-      "Men's Haircut",
-      "Pest Control Service", 
-    ],
-    image: "../../public/images/staffs/person-1.jpg",
-  },
-  {
-    _id: 147,
-    name: "Mariam Akhter",
-    bio: "Professional beautician with a passion for skincare.",
-    description:
-      "I have been in the beauty industry for 8 years, specializing in skincare and wellness treatments. My services include facials, manicures, pedicures, and more to help you feel your best.",
-    location: "Dhanmondi, Dhaka",
-    rate: "1800",
-    services: ["Facial for Men", "Manicure and Pedicure", "Spa Treatment"],
-    image: "../../public/images/staffs/woman-1.jpg",
-  },
-  {
-    _id: 148,
-    name: "Kamrul Hasan",
-    bio: "Certified pest control expert with over 7 years of experience.",
-    description:
-      "I provide effective pest control solutions for homes and offices. My services include comprehensive pest inspections, treatment, and prevention to ensure a pest-free environment.",
-    location: "Uttara, Dhaka",
-    rate: "1000",
-    services: ["Home Deep Cleaning", "Pest Control Service", "Sofa Cleaning"],
-    image: "../../public/images/staffs/person-2.jpg",
-  },
-  {
-    _id: 149,
-    name: "Shirin Akter",
-    bio: "Experienced hair stylist and makeup artist.",
-    description:
-      "With 15 years of experience in the beauty and wellness industry, I offer a range of services including bridal makeup, hair styling, and more. My aim is to enhance your natural beauty and make you feel confident.",
-    location: "Bashundhara, Dhaka",
-    rate: "2500",
-    services: ["Bridal Makeup", "Men's Haircut", "Beard Grooming"],
-    image: "../../public/images/staffs/woman-2.jpg",
-  },
-  {
-    _id: 150,
-    name: "Salman Hossain",
-    bio: "AC installation and maintenance specialist.",
-    description:
-      "I have over 10 years of experience in installing and maintaining AC units. My services include installation, gas refilling, and regular maintenance to ensure optimal performance of your AC.",
-    location: "Mirpur, Dhaka",
-    rate: "1500",
-    services: ["AC Installation", "AC Gas Refill", "AC Maintenance"],
-    image: "../../public/images/staffs/person-3.jpg",
-  },
-  {
-    _id: 151,
-    name: "Rashidul Islam",
-    bio: "Home cleaning and pest control expert.",
-    description:
-      "I provide deep cleaning services for homes and specialize in pest control. My goal is to ensure your living space is clean and free from pests.",
-    location: "Mohammadpur, Dhaka",
-    rate: "900",
-    services: ["Home Deep Cleaning", "Pest Control Service", "Sofa Cleaning"],
-    image: "../../public/images/staffs/person-4.jpg",
-  },
-  {
-    _id: 152,
-    name: "Sadia Rahman",
-    bio: "Experienced beautician and wellness expert.",
-    description:
-      "I have been working in the beauty industry for over 12 years, offering a wide range of services including bridal makeup, spa treatments, and more. I aim to provide a relaxing and rejuvenating experience for all my clients.",
-    location: "Baridhara, Dhaka",
-    rate: "2300",
-    services: ["Bridal Makeup", "Facial for Men", "Spa Treatment"],
-    image: "../../public/images/staffs/woman-3.jpg",
-  },
-  {
-    _id: 153,
-    name: "Nabil Ahmed",
-    bio: "AC repair and maintenance technician.",
-    description:
-      "Specializing in AC repair and maintenance for over 8 years, I ensure that your AC units are always in top condition. I provide gas refilling, maintenance checks, and installation services.",
-    location: "Banasree, Dhaka",
-    rate: "1400",
-    services: ["AC Installation", "AC Gas Refill", "AC Maintenance"],
-    image: "../../public/images/staffs/person-5.jpg",
-  },
-  {
-    _id: 154,
-    name: "Farhana Islam",
-    bio: "Skilled beautician specializing in hair and makeup.",
-    description:
-      "With a passion for beauty, I have been providing hair and makeup services for over 10 years. Whether it's a simple haircut or an elaborate bridal makeup, I ensure my clients look their best.",
-    location: "Gulshan, Dhaka",
-    rate: "2600",
-    services: ["Men's Haircut", "Beard Grooming", "Bridal Makeup"],
-    image: "../../public/images/staffs/woman-4.jpg",
-  },
-  {
-    _id: 155,
-    name: "Aminul Haque",
-    bio: "Appliance repair technician with a focus on kitchen appliances.",
-    description:
-      "I have been repairing kitchen appliances like microwaves and refrigerators for over 6 years. My services are quick, reliable, and affordable, ensuring your appliances are up and running in no time.",
-    location: "Tejgaon, Dhaka",
-    rate: "1100",
-    services: [
-      "Microwave Oven Repair",
-      "Refrigerator Repair",
-      "Washing Machine Repair",
-    ],
-    image: "../../public/images/staffs/person-6.jpg",
-  },
-];
+const formatTime = (timeString: string) => {
+  const [hours, minutes] = timeString.split(":");
+  const formattedHours = Number(hours) % 12 || 12;
+  const formattedMinutes = minutes;
+  const period = Number(hours) < 12 ? "AM" : "PM";
+  return `${formattedHours}:${formattedMinutes} ${period}`;
+};
+const StaffAbout: React.FC<StaffAboutProps> = ({ staff }) => {
+  const categories = [
+    ...new Set(
+      staff.services.map(
+        (staffService) =>
+          services.find((service) => service.name === staffService)?.category
+      )
+    ),
+  ];
 
-export default function ServiceDetails() {
-  const { id } = useParams();
-  const service = services.find((service) => service._id == Number(id));
+  console.log(categories);
+
   return (
-    <div>
-      <Navbar />
+    <div className="py-10 bg-gray-200">
       <div className="container mx-auto p-2">
-        <h1 className="text-lg lg:text-2xl font-bold my-3 lg:my-4">
-          {service?.name}
-        </h1>
-        <div className="grid grid-cols-1 lg:grid-cols-2">
-          <div className="w-full py-2">
-            <img
-              src={service?.image}
-              alt={service?.name}
-              className="rounded-lg shadow-lg mx-auto max-w-full max-h-64"
-            />
-
-            <h2 className="mt-5 py-2 font-bold">Description</h2>
-            <h2 className="text-justify">{service?.details}</h2>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2">
           <div>
-            <h2 className="py-2 font-bold">Service Providers</h2>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mt-5">
-              {staffs
-                .filter(
-                  (staff) =>
-                    service?.name && staff.services.includes(service.name)
-                )
-                .map((staff) => (
-                  <StaffMiniCard key={staff._id} staff={staff} />
-                ))}
+            {/* Policies */}
+            <div className="bg-white border rounded-md p-5 w-full md:w-11/12">
+              <h2 className="text-xl font-bold">Policies</h2>
+              <div className="flex items-center mt-5">
+                <div className="">
+                  <img
+                    src="../../public/images/location.svg"
+                    alt="location icon"
+                    className="w-5"
+                  />
+                </div>
+                <div className="ms-3 text-xs">
+                  <p className="text-gray-500">From</p>
+                  <p className="mt-1">{staff.location}</p>
+                </div>
+              </div>
+
+              <div className="flex items-center mt-5">
+                <div className="">
+                  <img
+                    src="../../public/images/taka.svg"
+                    alt="taka icon"
+                    className="w-5"
+                  />
+                </div>
+                <div className="ms-3 text-xs">
+                  <p className="text-gray-500">SerRate</p>
+                  <p className="mt-1">৳ {staff.rate}</p>
+                </div>
+              </div>
             </div>
+            {/* //Service Slots */}
+            <div className="bg-white border rounded-md p-5 w-full md:w-11/12 mt-3">
+              <h2 className="text-xl font-bold">Service Slots</h2>
+              <div className="divide-y divide-slate-300">
+                {slots.map((slot) => (
+                  <div
+                    key={slot._id}
+                    className="grid grid-cols-2 items-center content-between"
+                  >
+                    <div className="text-sm py-2 text-gray-500">
+                      {slot.label}
+                    </div>
+                    <div className="text-end py-2 text-sm text-gray-500">
+                      {formatTime(slot.start_time)} -{" "}
+                      {formatTime(slot.end_time)}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="pt-5 md:pt-0">
+            <h2 className="text-xl font-bold">Staff Information</h2>
+            <p className="text-justify text-sm leading-6 mt-3 text-gray-500">
+              {staff.description}
+            </p>
+
+            <div className="border rounded-md bg-white mt-5 p-5">
+                <h2 className="text-xl font-bold">Categories</h2>
+                <div className="flex mt-5 flex-wrap gap-2">
+                    {
+                        categories.map((category, index) => (
+                            <p key={index} className="text-sm mr-2 p-2 text-gray-500 border border-gray-500 rounded-full">
+                                {category}
+                            </p>
+                        ))
+                    }
+                </div>
+            </div>
+
+            <div className="border rounded-md bg-white mt-5 p-5">
+                <h2 className="text-xl font-bold">Services</h2>
+                <div className="flex mt-5 flex-wrap gap-2">
+                    {
+                        staff.services.map((service, index) => (
+                            <p key={index} className="text-sm mr-2 p-2 text-gray-500 border border-gray-500 rounded-full">
+                                {service}
+                            </p>
+                        ))
+                    }
+                </div>
+            </div>
+
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default StaffAbout;

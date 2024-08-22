@@ -1,5 +1,9 @@
+import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import StaffCard from "../components/StaffCard";
+import { useState } from "react";
+import StaffAbout from "../components/StaffAbout";
+import StaffReview from "../components/StaffReview";
+
 const staffs = [
   {
     _id: 146,
@@ -14,7 +18,7 @@ const staffs = [
       "Washing Machine Repair",
       "Microwave Oven Repair",
       "Men's Haircut",
-      "Pest Control Service", 
+      "Pest Control Service",
     ],
     image: "../../public/images/staffs/person-1.jpg",
   },
@@ -122,18 +126,71 @@ const staffs = [
     image: "../../public/images/staffs/person-6.jpg",
   },
 ];
+const StaffDetails = () => {
+  const { id } = useParams();
+  const staff = staffs.find((staff) => staff._id === Number(id));
+  const [tab, setTab] = useState("About");
+  const handleTabChange = (tabName: string) => {
+    if (tab !== tabName) {
+      setTab(tabName);
+    }
+  };
+  console.log(tab);
 
-export default function Staffs() {
+  if (!staff) {
+    return <div>Staff not found</div>;
+  }
+
   return (
     <div>
       <Navbar />
       <div className="container mx-auto p-2">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {staffs.map((staff) => (
-            <StaffCard key={staff._id} staff={staff} />
-          ))}
+        <div className="md:flex items-center mt-5 h-44">
+          <div>
+            <img
+              src={staff.image}
+              alt={staff.name}
+              className="rounded-full w-32 h-32 shadow-md"
+            />
+          </div>
+          <div className="md:ml-0 md:pl-5 mt-10">
+            <h2 className="text-xl font-bold">{staff.name}</h2>
+            <h3 className="text-sm text-gray-600">{staff.bio}</h3>
+            <h4 className="text-sm text-gray-800">
+              ৳ {Number(staff.rate).toLocaleString()}
+            </h4>
+          </div>
+        </div>
+
+        <div className="mt-5 pt-5 md:pt-0">
+          <button
+            onClick={() => handleTabChange("About")}
+            className={`text-lg font-bold tracking-wide border-b-2 p-2 
+              ${
+                tab === "About" ? "text-sky-600 border-sky-600" : "text-sky-950"
+              }
+              hover:border-sky-600`}
+          >
+            About
+          </button>
+          <button
+            onClick={() => handleTabChange("Review")}
+            className={`text-lg font-bold tracking-wide border-b-2 p-2 ms-5 
+              ${
+                tab === "Review"
+                  ? "text-sky-600 border-sky-600"
+                  : "text-sky-950"
+              }
+              hover:border-sky-600`}
+          >
+            ratings & Reviews
+          </button>
         </div>
       </div>
+      {tab === "About" && <StaffAbout staff={staff} />}
+      {tab === "Review" && <StaffReview />}
     </div>
   );
-}
+};
+
+export default StaffDetails;

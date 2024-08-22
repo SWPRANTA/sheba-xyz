@@ -26,7 +26,7 @@ const StaffMiniCard: React.FC<StaffMiniCardProps> = ({ staff }) => {
         <div className="mt-2">
             <h2 className="font-bold text-center">{staff.name}</h2>
             <h2 className="text-center text-xs py-1 line-clamp-1">{staff.bio}</h2>
-            <h3 className="text-center text-sm text-gray-600">$ {Number(staff.rate).toLocaleString()}</h3>
+            <h3 className="text-center text-sm text-gray-600">৳ {Number(staff.rate).toLocaleString()}</h3>
         </div>
 
         <div className="flex lg:block xl:flex items-center justify-between mt-3">

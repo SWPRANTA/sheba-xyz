@@ -2,10 +2,11 @@ import { createBrowserRouter } from "react-router-dom";
 import Home from "./pages/Home";
 import Error from "./pages/Error";
 import Login from "./pages/Login";
-import SIgnUp from "./pages/SIgnUp";
 import Services from "./pages/Services";
 import Staffs from "./pages/Staffs";
 import ServiceDetails from "./pages/ServiceDetails";
+import StaffDetails from "./pages/StaffDetails";
+import SignUp from "./pages/SignUp";
 
 export const router = createBrowserRouter([
   {
@@ -20,7 +21,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "/signup",
-    element: <SIgnUp />,
+    element: <SignUp />,
     errorElement: <Error />,
   },
   {
@@ -36,6 +37,11 @@ export const router = createBrowserRouter([
   {
     path: "/staffs",
     element: <Staffs />,
+    errorElement: <Error />,
+  },
+  {
+    path: "/staff-details/:id",
+    element: <StaffDetails />,
     errorElement: <Error />,
   },
 ]);
