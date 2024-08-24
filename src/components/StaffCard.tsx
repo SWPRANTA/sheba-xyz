@@ -44,7 +44,7 @@ const StaffCard: React.FC<StaffMiniCardProps> = ({ staff }) => {
         {staff.services.length > 3 ? (
           <>
             {staff.services.slice(0, 3).map((service) => (
-              <p className="mr-2 border rounded-full p-2 border-gray-700">
+              <p key={service} className="mr-2 border rounded-full p-2 border-gray-700">
                 {service}
               </p>
             ))}

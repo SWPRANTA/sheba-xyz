@@ -1,6 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../public/images/sheba-xyz-logo.svg";
 import ctl from "@netlify/classnames-template-literals";
+import useAuth from "../hooks/useAuth";
 const navBarSuperStyle = ctl(`bg-white 
 h-20 md:h-16 
 sticky 
@@ -28,6 +29,7 @@ const getNavLinkClass = (
 };
 
 export default function Navbar() {
+  const { user } = useAuth();
   return (
     <div className={navBarSuperStyle}>
       <div className={navBarSubStyle}>
@@ -51,23 +53,50 @@ export default function Navbar() {
           >
             Staffs
           </NavLink>
-          <NavLink
-            to={"/login"}
-            className={({ isActive, isPending, isTransitioning }) =>
-              getNavLinkClass(isActive, isPending, isTransitioning)
-            }
-          >
-            Login
-          </NavLink>
-          {/* <NavLink to={"/dashboard"} className={({ isActive, isPending, isTransitioning }) =>
-              getNavLinkClass(isActive, isPending, isTransitioning)
-            } >Dashboard</NavLink>
-          <NavLink to={"/admin"} className={({ isActive, isPending, isTransitioning }) =>
-              getNavLinkClass(isActive, isPending, isTransitioning)
-            } >Admin</NavLink>
-          <NavLink to={"/staff"} className={({ isActive, isPending, isTransitioning }) =>
-              getNavLinkClass(isActive, isPending, isTransitioning)
-            } >Staff</NavLink> */}
+
+          {user ? (
+            <>
+              {user.role === "user" && (
+                <NavLink
+                  to={"/dashboard"}
+                  className={({ isActive, isPending, isTransitioning }) =>
+                    getNavLinkClass(isActive, isPending, isTransitioning)
+                  }
+                >
+                  Dashboard
+                </NavLink>
+              )}
+              {user.role === "admin" && (
+                <NavLink
+                  to={"/admin-dashboard"}
+                  className={({ isActive, isPending, isTransitioning }) =>
+                    getNavLinkClass(isActive, isPending, isTransitioning)
+                  }
+                >
+                  Admin
+                </NavLink>
+              )}
+              {user.role === "staff" && (
+                <NavLink
+                  to={"/staff-dashboard"}
+                  className={({ isActive, isPending, isTransitioning }) =>
+                    getNavLinkClass(isActive, isPending, isTransitioning)
+                  }
+                >
+                  Staff
+                </NavLink>
+              )}
+            </>
+          ) : (
+            <NavLink
+              to={"/login"}
+              className={({ isActive, isPending, isTransitioning }) =>
+                getNavLinkClass(isActive, isPending, isTransitioning)
+              }
+            >
+              Login
+            </NavLink>
+          )}
         </div>
       </div>
     </div>

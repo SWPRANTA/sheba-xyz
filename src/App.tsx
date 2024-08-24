@@ -1,11 +1,14 @@
-import { RouterProvider } from "react-router-dom"
-import { router } from "./routes"
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes";
+import AuthProvider from "./context/AuthProvider";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-
   return (
-    <RouterProvider router={router}/>
-  )
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  );
 }
 
-export default App
+export default App;

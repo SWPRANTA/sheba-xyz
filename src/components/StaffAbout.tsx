@@ -270,7 +270,7 @@ const StaffAbout: React.FC<StaffAboutProps> = ({ staff }) => {
                   />
                 </div>
                 <div className="ms-3 text-xs">
-                  <p className="text-gray-500">SerRate</p>
+                  <p className="text-gray-500">Service Rate</p>
                   <p className="mt-1">৳ {staff.rate}</p>
                 </div>
               </div>

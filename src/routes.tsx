@@ -7,6 +7,10 @@ import Staffs from "./pages/Staffs";
 import ServiceDetails from "./pages/ServiceDetails";
 import StaffDetails from "./pages/StaffDetails";
 import SignUp from "./pages/SignUp";
+import PrivateOutlet from "./components/PrivateOutlet";
+import DashBoard from "./pages/DashBoard";
+import AdminDashboard from "./pages/AdminDashboard";
+import StaffDashboard from "./pages/StaffDashboard";
 
 export const router = createBrowserRouter([
   {
@@ -35,13 +39,48 @@ export const router = createBrowserRouter([
     errorElement: <Error />,
   },
   {
+    path: "/staff-details/:id",
+    element: <StaffDetails />,
+    errorElement: <Error />,
+  },
+  {
     path: "/staffs",
     element: <Staffs />,
     errorElement: <Error />,
   },
+
+  //Private routes
   {
-    path: "/staff-details/:id",
-    element: <StaffDetails />,
+    path: "/staff-dashboard",
+    element: <PrivateOutlet />, // Protect the dashboard route
+    children: [
+      {
+        path: "/staff-dashboard", // or any child routes of the dashboard
+        element: <StaffDashboard />,
+      },
+    ],
+    errorElement: <Error />,
+  },
+  {
+    path: "/admin-dashboard",
+    element: <PrivateOutlet />, // Protect the dashboard route
+    children: [
+      {
+        path: "/admin-dashboard", // or any child routes of the dashboard
+        element: <AdminDashboard/>,
+      },
+    ],
+    errorElement: <Error />,
+  },
+  {
+    path: "/dashboard",
+    element: <PrivateOutlet />, // Protect the dashboard route
+    children: [
+      {
+        path: "/dashboard", // or any child routes of the dashboard
+        element: <DashBoard />,
+      },
+    ],
     errorElement: <Error />,
   },
 ]);

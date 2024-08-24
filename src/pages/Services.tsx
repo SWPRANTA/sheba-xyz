@@ -54,8 +54,7 @@ export default function Services() {
       details:
         "Comprehensive AC maintenance including cleaning, filter replacement, and system checkup.",
       image: "../../public/images/ac-repairing-3.jpg",
-      attribute:
-        "https://www.vecteezy.com/free-photos/ac-repair",
+      attribute: "https://www.vecteezy.com/free-photos/ac-repair",
       attributeTitle: "Ac Repair Stock photos by Vecteezy",
     },
     {
@@ -76,8 +75,7 @@ export default function Services() {
       details:
         "Quick and reliable repair service for refrigerators to keep your food fresh.",
       image: "../../public/images/fridge.jpg",
-      attribute:
-        "https://www.vecteezy.com/free-photos/refrigerator",
+      attribute: "https://www.vecteezy.com/free-photos/refrigerator",
       attributeTitle: "Refrigerator Stock photos by Vecteezy",
     },
     {
@@ -87,8 +85,7 @@ export default function Services() {
       details:
         "Professional repair service for microwave ovens, including electrical and mechanical issues.",
       image: "../../public/images/microwave.jpg",
-      attribute:
-        "https://www.vecteezy.com/free-photos/oven",
+      attribute: "https://www.vecteezy.com/free-photos/oven",
       attributeTitle: "Oven Stock photos by Vecteezy",
     },
     {
@@ -131,8 +128,7 @@ export default function Services() {
       details:
         "Exclusive bridal makeup services to make your special day even more memorable.",
       image: "../../public/images/bridal-makeup.jpg",
-      attribute:
-        "https://www.vecteezy.com/free-photos/bridal-makeup",
+      attribute: "https://www.vecteezy.com/free-photos/bridal-makeup",
       attributeTitle: "Bridal Makeup Stock photos by Vecteezy",
     },
     {
@@ -152,8 +148,7 @@ export default function Services() {
       details:
         "Comprehensive manicure and pedicure services for well-groomed hands and feet.",
       image: "../../public/images/manicure-pedicure.jpg",
-      attribute:
-        "https://www.vecteezy.com/free-photos/manicure-pedicure",
+      attribute: "https://www.vecteezy.com/free-photos/manicure-pedicure",
       attributeTitle: "Manicure Pedicure Stock photos by Vecteezy",
     },
     {
@@ -189,8 +184,6 @@ export default function Services() {
       attributeTitle: "",
     },
   ];
-  
-
   return (
     <div className="">
       <Navbar />
