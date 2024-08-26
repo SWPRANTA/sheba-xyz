@@ -1,9 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 interface Staff {
-  _id: number;
+  _id: string;
   name: string;
   bio: string;
+  category: string;
   description: string;
   location: string;
   rate: string;
@@ -17,6 +19,7 @@ interface StaffMiniCardProps {
 
 const StaffCard: React.FC<StaffMiniCardProps> = ({ staff }) => {
   const navigate = useNavigate();
+  const {setBookedStaff} = useAuth();
   return (
     <div className="bg-gray-300 border hover:border-sky-400 rounded-md shadow-md p-5">
       <div className="md:flex items-center">
@@ -59,7 +62,9 @@ const StaffCard: React.FC<StaffMiniCardProps> = ({ staff }) => {
         )}
       </div>
       <button
-        onClick={() => {navigate(`/staff-details/${staff._id}`)}}
+        onClick={() => {navigate(`/staff-details/${staff._id}`);
+        setBookedStaff(staff);
+      }}
         className="bg-sky-600 hover:bg-sky-900 text-white rounded-full text-xs flex items-center py-2 px-3 my-2"
       >
         See Profile

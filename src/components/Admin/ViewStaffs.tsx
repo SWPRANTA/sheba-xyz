@@ -1,16 +1,11 @@
 import { toast } from "react-toastify";
 import useAuth from "../../hooks/useAuth";
-const formatTime = (timeString: string) => {
-  const [hours, minutes] = timeString.split(":");
-  const formattedHours = Number(hours) % 12 || 12;
-  const formattedMinutes = minutes;
-  const period = Number(hours) < 12 ? "AM" : "PM";
-  return `${formattedHours}:${formattedMinutes} ${period}`;
-};
-const ViewSlots = () => {
-  const { slots, setSlots } = useAuth();
-  const handleDeleteSlot = async (id: string) => {
-    const response = await fetch(`http://localhost:3001/staff/slot/${id}`, {
+
+const ViewStaffs = () => {
+  const { staffs, setStaffs } = useAuth();
+  
+  const handleDeleteStaffService = async (id: string) => {
+    const response = await fetch(`http://localhost:3001/staff/service/${id}`, {
       method: "DELETE",
     });
     const result = await response.json();
@@ -18,10 +13,10 @@ const ViewSlots = () => {
       toast.success(result.message);
       const fetchData = async () => {
         try {
-          const response = await fetch("http://localhost:3001/staff/slots");
+          const response = await fetch("http://localhost:3001/staff/services");
           const result = await response.json();
           if (result.status) {
-            setSlots(result.slots);
+            setStaffs(result.staffDetails);
           } else {
             console.log(result.message);
           }
@@ -40,56 +35,59 @@ const ViewSlots = () => {
       <table className="min-w-full border relative">
         <thead className="bg-white border-b sticky -top-3">
           <tr>
-            <th className="text-sm font-medium text-gray-900 p-3 text-left">
+            <th className="text-sm font-medium text-gray-900 p-2 text-left">
               #
             </th>
-            <th className="text-sm font-medium text-gray-900 p-3 text-left">
-              Label
+            <th className="text-sm font-medium text-gray-900 p-2 text-left">
+              Name
             </th>
-            <th className="text-sm font-medium text-gray-900 p-3 text-left">
-              Start Time
+            <th className="text-sm font-medium text-gray-900 p-2 text-left">
+              Location
             </th>
-            <th className="text-sm font-medium text-gray-900 p-3 text-left">
-              End Time
+            <th className="text-sm font-medium text-gray-900 p-2 text-left">
+              Rate
             </th>
-            <th className="text-sm font-medium text-gray-900 p-3 text-left">
+            <th className="text-sm font-medium text-gray-900 p-2 text-left">
               Action
             </th>
           </tr>
         </thead>
         <tbody>
-          {slots &&
-            slots.length > 0 &&
-            slots.map(
+          {staffs &&
+            staffs.length > 0 &&
+            staffs.map(
               (
-                slot: {
+                staff: {
                   _id: string;
-                  staffId: string;
-                  label: string;
-                  start_time: string;
-                  end_time: string;
-                },
-                index
+                  name: string;
+                  bio: string;
+                  description: string;
+                  location: string;
+                  rate: string;
+                  category: string;
+                  services: string[];
+                  image: string;
+                }
               ) => (
                 <tr
-                  key={slot._id}
+                  key={staff._id}
                   className="odd:bg-gray-100 even:bg-gray-300 border-b "
                 >
-                  <td className="text-sm text-gray-900 font-light p-3 whitespace-nowrap">
-                    {index + 1}
+                  <td className="p-2">
+                    <img src={staff.image} alt="staff image" className="rounded-full w-10"/>
                   </td>
                   <td className="text-sm text-gray-900 font-light p-3 whitespace-nowrap">
-                    {slot.label}
+                    {staff.name}
                   </td>
                   <td className="text-sm text-gray-900 font-light p-3 whitespace-nowrap">
-                    {formatTime(slot.start_time)}
+                    {staff.location}
                   </td>
                   <td className="text-sm text-gray-900 font-light p-3 whitespace-nowrap">
-                    {formatTime(slot.end_time)}
+                    {staff.rate}
                   </td>
                   <td className="text-sm text-gray-900 font-light p-3 whitespace-nowrap">
                     <img
-                      onClick={() => handleDeleteSlot(slot._id)}
+                      onClick={() => handleDeleteStaffService(staff._id)}
                       src="../../../public/images/trash-can.svg"
                       className="w-6 cursor-pointer"
                     />
@@ -102,4 +100,4 @@ const ViewSlots = () => {
     </div>
   );
 };
-export default ViewSlots;
+export default ViewStaffs;

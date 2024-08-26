@@ -49,7 +49,6 @@ export default function Login() {
           body: JSON.stringify(formData),
         });
         const result = await response.json();
-        console.log(result.user);
         if (result.status) {
           setUser(result.user);
           setLoginError(result.message);

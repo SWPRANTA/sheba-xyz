@@ -3,23 +3,31 @@ import { Bounce, toast } from "react-toastify";
 import useAuth from "../../hooks/useAuth";
 
 type Inputs = {
-  name: string;
+  staffId: string;
+  label: string;
+  start_time: string;
+  end_time: string;
 };
 
-export default function CreateCategory() {
-  const {setCategories} = useAuth();
+export default function CreateSlot() {
+  const { setSlots } = useAuth();
+  const uId = localStorage.getItem("uId");
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => processCreateCategory(data);
+  const onSubmit: SubmitHandler<Inputs> = (data) => processCreateSlot(data);
 
-  const processCreateCategory = (data: Inputs) => {
+  const processCreateSlot = (data: Inputs) => {
     const formData = {
-      name: data.name
+      staffId: uId,
+      label: data.label,
+      start_time: data.start_time,
+      end_time: data.end_time,
     };
-    const btn = document.getElementById("add_category_btn");
+
+    const btn = document.getElementById("add_slot_btn");
     if (btn) {
       btn.innerText = "Adding...";
       btn.setAttribute("disabled", "true");
@@ -28,7 +36,7 @@ export default function CreateCategory() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3001/category`,
+          `http://localhost:3001/staff/${uId}/slot`,
           {
             method: "POST",
             headers: {
@@ -37,6 +45,7 @@ export default function CreateCategory() {
             body: JSON.stringify(formData),
           }
         );
+
         const result = await response.json();
 
         if (result.status) {
@@ -53,10 +62,10 @@ export default function CreateCategory() {
           });
           const fetchData = async () => {
             try {
-              const response = await fetch("http://localhost:3001/categories");
+              const response = await fetch("http://localhost:3001/staff/slots");
               const result = await response.json();
               if (result.status) {
-                setCategories(result.categories);
+                setSlots(result.slots);
               } else {
                 console.log(result.message);
               }
@@ -67,7 +76,7 @@ export default function CreateCategory() {
           fetchData();
 
           (
-            document.getElementById("add_category_form_admin") as HTMLFormElement
+            document.getElementById("add_slot_form_admin") as HTMLFormElement
           ).reset();
         } else {
           toast.error(`${result.message}`, {
@@ -83,17 +92,7 @@ export default function CreateCategory() {
           });
         }
       } catch (error) {
-        toast.error(`${error}`, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
-        });
+        console.log(error);
       } finally {
         if (btn) {
           btn.removeAttribute("disabled");
@@ -106,25 +105,40 @@ export default function CreateCategory() {
 
   return (
     <form
-      id="add_category_form_admin"
+      id="add_slot_form_admin"
       onSubmit={handleSubmit(onSubmit)}
       className="mx-auto xl:w-2/3 w-full"
     >
       <div className="my-2">
         <input
           type="text"
-          placeholder="Category Name"
-          autoComplete="name"
+          placeholder="Slot Label"
           className="w-full p-2 border-2 rounded border-sky-600 focus:outline-sky-900"
-          {...register("name", { required: true })}
+          {...register("label", { required: true })}
         />
-        {errors.name && <p className="text-red-500">This field is required</p>}
+        {errors.label && <p className="text-red-500">Label is required</p>}
       </div>
-
-      
+      <div className="my-2">
+        <input
+          type="time"
+          placeholder="Start Time"
+          className="w-full p-2 border-2 rounded border-sky-600 focus:outline-sky-900"
+          {...register("start_time", { required: true })}
+        />
+        {errors.start_time && <p className="text-red-500">Start time is required</p>}
+      </div>
+      <div className="my-2">
+        <input
+          type="time"
+          placeholder="End Time"
+          className="w-full p-2 border-2 rounded border-sky-600 focus:outline-sky-900"
+          {...register("end_time", { required: true })}
+        />
+        {errors.end_time && <p className="text-red-500">End time is required</p>}
+      </div>
       <div className="my-2">
         <button
-          id="add_category_btn"
+          id="add_slot_btn"
           type="submit"
           className="w-full p-2 bg-sky-700 hover:bg-sky-800 text-white rounded-md"
         >

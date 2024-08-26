@@ -5,8 +5,14 @@ import { useEffect } from "react";
 import CreateUser from "../components/Admin/CreateUser";
 import { ToastContainer } from "react-toastify";
 import ViewUsers from "../components/Admin/ViewUsers";
-import CreateCategory from "../components/Admin/CreateCAtegory";
 import ViewCategory from "../components/Admin/ViewCategory";
+import CreateSlot from "../components/Admin/CreateSlot";
+import ViewSlots from "../components/Admin/ViewSlots";
+import CreateCategory from "../components/Admin/CreateCategory";
+import CreateService from "../components/Admin/CreateService";
+import ViewServices from "../components/Admin/ViewServices";
+import CreateServiceStaff from "../components/Admin/CreateStaff";
+import ViewStaffs from "../components/Admin/ViewStaffs";
 
 const Admin = () => {
   const { user, logOut } = useAuth();
@@ -63,11 +69,29 @@ const Admin = () => {
             <h2 className="felx items-center bg-slate-700 justify-center text-white">
               Slot Module
             </h2>
-            <CreateCategory />
+            <CreateSlot />
 
-            <ViewCategory />
+            <ViewSlots />
           </div>
+
+          {/* Staff Module */}
+          <div className="min-w-full p-3 shadow rounded border text-center">
+            <h2 className="felx items-center bg-slate-700 justify-center text-white">
+              Staff Module
+            </h2>
+            <CreateServiceStaff/>
+            <ViewStaffs />
+          </div>
+<img src="../../public/images/staffs/person-2.jpg" alt="" />
         </div>
+        {/* Service Module */}
+        <div className="w-full p-3 shadow rounded border text-center">
+            <h2 className="felx items-center bg-slate-700 justify-center text-white">
+              Service Module
+            </h2>
+            <CreateService/>
+            <ViewServices />
+          </div>
       </div>
       <ToastContainer />
     </div>
