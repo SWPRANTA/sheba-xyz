@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import useAuth from "../hooks/useAuth";
 import { useEffect } from "react";
+import PaymentsHistory from "../components/DashBoard/PaymentsHistory";
+import AppointmentsHistory from "../components/DashBoard/AppointmentsHistory";
 
 const DashBoard = () => {
   const { user, logOut } = useAuth();
@@ -15,11 +17,12 @@ const DashBoard = () => {
       navigate("/staff-dashboard");
     }
   }, [user?.role, navigate]);
+
   return (
     <div>
       <Navbar />
       <div className="container mx-auto p-2">
-        <div className="">
+        <div className="flex justify-between items-center mt-10">
           <h1>
             Welcome{" "}
             <span className="capitalize text-sky-500">{user?.name}</span>
@@ -30,6 +33,18 @@ const DashBoard = () => {
           >
             Log Out
           </button>
+        </div>
+
+        <div className="w-full grid grid-cols-1 gap-10 mt-5">
+          <div className="shadow p-2 rounded border border-purple-600">
+            <h2 className="">Payments History</h2>
+            <PaymentsHistory />
+          </div>
+
+          <div className="shadow p-2 rounded border border-lime-600">
+            <h2 className="">Appointments History</h2>
+            <AppointmentsHistory />
+          </div>
         </div>
       </div>
     </div>

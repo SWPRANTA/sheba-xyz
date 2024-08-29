@@ -43,6 +43,18 @@ type Staff = {
   services: string[];
   image: string;
 };
+type Booking = {
+  _id: string;
+  date: string;
+  email: string;
+  name: string;
+  slotId: string;
+  bookedService: Service;
+  bookedStaff: Staff;
+  bookedSlot: Slote;
+  trxID: string;
+  status: string;
+};
 type AuthContextType = {
   categories: Category[];
   setCategories: React.Dispatch<React.SetStateAction<Category[]>>;
@@ -62,6 +74,9 @@ type AuthContextType = {
   setBookedStaff: React.Dispatch<React.SetStateAction<Staff | null>>;
   bookedSlot: Slote | null;
   setBookedSlot: React.Dispatch<React.SetStateAction<Slote | null>>;
+  userBookings: Booking[];
+  bookings: Booking[];
+  staffPayments: Booking[];
   logOut: () => void;
 };
 
